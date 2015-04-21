@@ -109,5 +109,26 @@ public class test {
 	 }
 
 	}
+	public static void write(String fileName, List<String> list) {
+	    File file = new File(fileName);
+	    String [] linesAsArray = list.toArray(new String[list.size()]);
+	    try {
+	        if(!file.exists()){
+	            file.createNewFile();
+	        }
 
+	        PrintWriter out = new PrintWriter(file.getAbsoluteFile());
+	 
+	        try {
+	        	for(int i = 0; i < list.size(); i++)
+	        	{
+	            out.print(linesAsArray[i] + "\n");
+	        	}
+	        } finally {
+	            out.close();
+	        }
+	    } catch(IOException e) {
+	        throw new RuntimeException(e);
+	    }
+	}
 }
