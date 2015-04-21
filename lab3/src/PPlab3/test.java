@@ -45,5 +45,69 @@ public class test {
         }
 		return match.matches();
 		}
+	static public void GetContents(File file)
+	{
+
+	 try
+	 {
+	 if (file == null)
+	 {
+	 throw new IllegalArgumentException("File should not be null.");
+	 }
+
+	 if (!file.exists())
+	 {
+	 throw new FileNotFoundException();
+	 }
+
+	 if (!file.canRead())
+
+	 {
+	 throw new IllegalArgumentException("File cannot be written:" + file);
+	 }
+
+	 if (!file.isFile())
+	 {
+	 throw new IllegalArgumentException("Should not be a directory: " + file);
+	 }
+
+	 FileInputStream fis = new FileInputStream(file);
+	 InputStreamReader in = new InputStreamReader(fis);
+	 BufferedReader input = new BufferedReader(in);
+
+	 String line = null;
+	 try{
+	 while ((line = input.readLine()) != null)
+	 {
+		 String[] test =  line.trim().split("[,;:!?\\s]+");
+			for(int i =0; i < test.length; i++)
+			{
+				if(checkWithRegExpName(test[i]) || checkWithRegExpPhone(test[i]) || checkWithRegExpEmail(test[i]) )
+				{
+					test[i]= "[censored]";
+				}
+				 lines.add(test[i]+ ' ');
+			}
+
+	 }
+	 }
+	 finally{
+	 input.close();
+	 }
+	 }
+	 catch (FileNotFoundException ex)
+	 {
+	 System.out.println("File does not exist: " + file);
+	 }
+	 catch(IllegalArgumentException ex)
+	 {
+	 System.out.println(ex.getMessage());
+	 }
+	 catch (Exception ex)
+	 {
+	 ex.printStackTrace();
+	 }
+
+	}
 
 }
