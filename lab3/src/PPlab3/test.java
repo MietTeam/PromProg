@@ -16,6 +16,10 @@ public class test {
 	static List<String> lines;
 	public static void main(String[] args) {
 		
+		File testFile = new File("test.txt");
+		lines = new ArrayList<String>();
+		 GetContents(testFile);
+		 write("out.txt", lines);
 		
 	}
 	public static boolean checkWithRegExpName(String testString){
